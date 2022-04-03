@@ -23,24 +23,23 @@ void uart_init(){
     UART_REG->CONFIG &= ~((1<<1) | (1<<2) | (1<<3)); // Ikke paritetsbit
     UART_REG->CONFIG &= ~(1<<4);// En stopbit
 
-    UART_REG->ENABLE |= (1<<2);
+    UART_REG->INTENSET |= (1<<2) | (1<<7); //Enable interrupts for uart
+
+    UART_REG->ENABLE = 0x04;//Enable uart
     UART_REG->TASKS_STARTRX |= (1<<0);
 
 }
 
 void uart_send(char letter){
 
-    //UART_REG->TASKS_STARTTX |= (1<<0);
-    while(!UART_REG->EVENTS_TXDRDY & (1<<0)){
-        ;
-    }
+    UART_REG->TASKS_STARTTX |= (1<<0);
+    UART_REG->EVENTS_TXDRDY &= ~(1<<0);
     UART_REG->TXD = letter;
-    
-    while(!UART_REG->EVENTS_TXDRDY & (1<<0)){
-        ;
-    }
 
-    //UART_REG->TASKS_STOPTX
+    while(!UART_REG->EVENTS_TXDRDY & (1<<0)){
+    }
+    UART_REG->TASKS_STOPTX |= (1<<0);
+    gpio_lights_off();
 }
 
 char uart_read(){
