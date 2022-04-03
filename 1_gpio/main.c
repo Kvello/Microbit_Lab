@@ -76,7 +76,7 @@ int main(){
 
 		}
 
-		else if(((GPIO0->IN) & (1<<__BUTTON_A_PIN__) )== 0){
+		else if(((GPIO0->IN) & (1<<__BUTTON_A_PIN__))== 0){
 			GPIO0->OUTCLR = (1<<21); //Row 1
 			GPIO0->OUTCLR = (1<<22); //Row 2
 			GPIO0->OUTCLR = (1<<15); //Row 3

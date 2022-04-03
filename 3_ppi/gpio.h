@@ -2,6 +2,15 @@
 #define GPIO_H
 #include <stdint.h>
 
+#define __BUTTON_A_PIN__ 14
+#define __BUTTON_B_PIN__ 23
+
+#define ROW_1_PIN 21
+#define ROW_2_PIN 22
+#define ROW_3_PIN 15
+#define ROW_4_PIN 24
+#define ROW_5_PIN 19
+
 #define GPIO0 ((NRF_GPIO_REGS0*)0x50000000) //gpio 0 base adress
 #define GPIO1 ((NRF_GPIO_REGS1*)0x50000300) //gpio 1 base adress
 
@@ -34,6 +43,8 @@ typedef struct {
 	volatile uint32_t RESERVED1[118];
 	volatile uint32_t PIN_CNF[10];
 } NRF_GPIO_REGS1;
+
+void gpio_init();
 
 
 #endif
