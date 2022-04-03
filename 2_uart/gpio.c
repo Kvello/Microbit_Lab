@@ -2,8 +2,8 @@
 #include "gpio.h"
 
 void gpio_init(){
-	  GPIO0->PIN_CNF[14] = 0; // button A
-	  GPIO0->PIN_CNF[23] = 0; // button B
+	  GPIO0->PIN_CNF[__BUTTON_A_PIN__] = 0; // button A
+	  GPIO0->PIN_CNF[__BUTTON_B_PIN__] = 0; // button B
 
 	  // Configure leds
 	  GPIO0->PIN_CNF[21] = 1; //Row 1
@@ -20,17 +20,17 @@ void gpio_init(){
 };
 
 void gpio_lights_on(){
-   GPIO0->OUTSET = (1<<21);
-   GPIO0->OUTSET = (1<<22);
-   GPIO0->OUTSET = (1<<15);
-   GPIO0->OUTSET = (1<<24);
-   GPIO0->OUTSET = (1<<19);
+	GPIO0->OUTSET = (1<<21); //Row 1
+	GPIO0->OUTSET = (1<<22); //Row 2
+	GPIO0->OUTSET = (1<<15); //Row 3
+	GPIO0->OUTSET = (1<<24); //Row 4
+	GPIO0->OUTSET = (1<<19); //Row 5
 };
 
 void gpio_lights_off(){
-   GPIO0->OUTCLR = (1<<21);
-   GPIO0->OUTCLR = (1<<22);
-   GPIO0->OUTCLR = (1<<15);
-   GPIO0->OUTCLR = (1<<24);
-   GPIO0->OUTCLR = (1<<19);
+	GPIO0->OUTCLR = (1<<21); //Row 1
+	GPIO0->OUTCLR = (1<<22); //Row 2
+	GPIO0->OUTCLR = (1<<15); //Row 3
+	GPIO0->OUTCLR = (1<<24); //Row 4
+	GPIO0->OUTCLR = (1<<19); //Row 5
 };
