@@ -18,12 +18,14 @@ void uart_init(){
     UART_REG -> PSEL_RTS |= (1<<31);
     UART_REG -> PSEL_CTS |= (1<<31);
 
+
+    UART_REG->CONFIG &= ~(1<<0); // Ikke hardware flow control
+    UART_REG->CONFIG &= ~((1<<1) | (1<<2) | (1<<3)); // Ikke paritetsbit
+    UART_REG->CONFIG &= ~(1<<4);// En stopbit
+
     UART_REG->ENABLE |= (1<<2);
     UART_REG->TASKS_STARTRX |= (1<<0);
 
-    UART_REG->CONFIG &= ~(1<<0);
-    UART_REG->CONFIG &= ~((1<<1) | (1<<2) | (1<<3));
-    UART_REG->CONFIG |= (1<<4);
 }
 
 void uart_send(char letter){
@@ -33,14 +35,18 @@ void uart_send(char letter){
         ;
     }
     UART_REG->TXD = letter;
+    
+    while(!UART_REG->EVENTS_TXDRDY & (1<<0)){
+        ;
+    }
 
     //UART_REG->TASKS_STOPTX
 }
 
 char uart_read(){
-    if(UART_REG->EVENTS_RXDRDY & (1<<0)){
+    if(UART_REG->EVENTS_RXDRDY & (1<<0)){ //Sjekk om det er en ny melding
         UART_REG->EVENTS_RXDRDY &=~(1<<0);
-        return UART_REG->RXD;
+        return (char)UART_REG->RXD & (0xFF);
     }
     else{
         return '\0';

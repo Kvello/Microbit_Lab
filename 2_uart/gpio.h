@@ -5,6 +5,9 @@
 #define GPIO0 ((NRF_GPIO_REGS0*)0x50000000) //gpio base adress
 #define GPIO1 ((NRF_GPIO_REGS1*)0x50000300) //gpio base adress
 
+#define __BUTTON_A_PIN__ 14
+#define __BUTTON_B_PIN__ 23
+
 typedef struct {
 	volatile uint32_t RESERVED0[321];
 	volatile uint32_t OUT;
@@ -38,6 +41,7 @@ typedef struct {
 void gpio_init();
 void gpio_lights_on();
 void gpio_lights_off();
+
 
 
 #endif
