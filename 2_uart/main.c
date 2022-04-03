@@ -4,9 +4,10 @@
 
 
 int main(){
-    uart_init();
+    
     clock_init();
     gpio_init();
+    uart_init();
 	
 	int sleep = 0;
 	while(1){
