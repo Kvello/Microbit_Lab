@@ -19,6 +19,7 @@ int main(){
 
 		else if(((GPIO0->IN) & (1<<__BUTTON_A_PIN__) )== 0){
             gpio_lights_off();
+			uart_send('B');
 		}
 
 		/* Check if button B is pressed;
